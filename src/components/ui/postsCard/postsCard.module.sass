@@ -1,0 +1,34 @@
+.postsCard
+    width: 200px
+    height: 300px
+    background: moccasin
+    padding: 10px 15px
+    margin: 0 0 30px 0
+    border-radius: 12px
+    word-break: break-all
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+
+    .cardImage
+        width: 100%
+        height: 40%
+        border-radius: 12px
+        overflow: hidden
+
+        img
+            width: 100%
+            height: 100%
+            transition: 250ms
+
+        img:hover
+            transform: scale(1.1)
+            cursor: pointer
+            transition: 250ms
+
+    button
+        width: 100%
+        background: red
+        padding: 8px
+        border-radius: 8px
+        cursor: pointer
