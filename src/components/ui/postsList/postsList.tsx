@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react'
 
 import classes from './postsList.module.sass'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux.tsx'
-import { asyncGetAllPosts } from '../../../store/reducers/postsSlice.tsx'
+import { asyncGetAllPosts } from '../../../store/reducers/postSlice/postsSlice.tsx'
 import { PostsCard } from '../postsCard/postsCard.tsx'
 import {NavLink} from "react-router-dom";
 import {links} from "../../../links/links.tsx";

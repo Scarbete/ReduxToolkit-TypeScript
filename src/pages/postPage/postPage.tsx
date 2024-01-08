@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import classes from './postPage.module.sass'
 import { IPost } from '../../models/IPost.tsx'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux.tsx'
-import { asyncEditPost, asyncGetOnePost } from '../../store/reducers/onePostSlice.tsx'
+import { asyncEditPost, asyncGetOnePost } from '../../store/reducers/onePostSlice/onePostSlice.tsx'
 
 
 export const PostPage: FC = () => {

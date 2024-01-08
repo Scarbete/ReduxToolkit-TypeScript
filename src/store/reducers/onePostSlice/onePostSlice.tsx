@@ -1,20 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { ApiRoutes } from '../../api/api.tsx'
-import { IPost } from '../../models/IPost.tsx'
+import { ApiRoutes } from '../../../api/api.tsx'
+import { IPost } from '../../../models/IPost.tsx'
+import { EditPostArgs, onePostState } from './types.tsx'
+import { getErrorMessage } from '../CustomRejectedAction.tsx'
 
-interface EditPostArgs {
-    postID: number,
-    newPost: IPost
-}
-
-interface onePostState {
-    post: IPost | null,
-    loading: boolean,
-    error: string,
-    editLoading: boolean
-}
 
 const initialState: onePostState = {
     post: null,
@@ -63,9 +54,9 @@ const { actions: onePostActon, reducer: onePostReducer } = createSlice({
             state.loading = false
             state.post = action.payload
         })
-        addCase(asyncGetOnePost.rejected, (state, action: PayloadAction<string>): void => {
+        addCase(asyncGetOnePost.rejected, (state, action): void => {
             state.loading = false
-            state.error = action.payload || 'Неизвестная ошибка!'
+            state.error = getErrorMessage(action)
         })
         addCase(asyncEditPost.pending, (state): void => {
             state.editLoading = true
@@ -73,9 +64,9 @@ const { actions: onePostActon, reducer: onePostReducer } = createSlice({
         addCase(asyncEditPost.fulfilled, (state): void => {
             state.editLoading = false
         })
-        addCase(asyncEditPost.rejected, (state, action: PayloadAction<string>): void => {
+        addCase(asyncEditPost.rejected, (state, action): void => {
             state.editLoading = false
-            state.error = action.payload || 'Неизвестная ошибка!'
+            state.error = getErrorMessage(action)
         })
     }
 })

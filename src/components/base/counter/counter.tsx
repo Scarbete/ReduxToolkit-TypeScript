@@ -1,4 +1,4 @@
-import { counterAction } from '../../../store/reducers/counterSlice.tsx'
+import { counterAction } from '../../../store/reducers/counterSlice/counterSlice.tsx'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux.tsx'
 import { FC } from 'react'
 

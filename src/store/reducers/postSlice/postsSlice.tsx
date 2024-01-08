@@ -1,14 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { IPost } from '../../models/IPost.tsx'
-import { ApiRoutes } from '../../api/api.tsx'
-
-interface PostsState {
-    posts: IPost[],
-    loading: boolean,
-    error: string,
-}
+import { IPost } from '../../../models/IPost.tsx'
+import { getErrorMessage } from '../CustomRejectedAction.tsx'
+import { ApiRoutes } from '../../../api/api.tsx'
+import { PostsState } from './types.tsx'
 
 const initialState: PostsState = {
     posts: [],
@@ -18,13 +14,13 @@ const initialState: PostsState = {
 
 
 export const asyncGetAllPosts = createAsyncThunk<IPost[]>(
-    'postsSlice/asyncGetAllPosts', async (_, thunkAPI) => {
+    'postsSlice/asyncGetAllPosts', async (_, { rejectWithValue }) => {
         try {
             const { data } = await axios.get<IPost[]>(ApiRoutes.posts)
             return data
         }
         catch (e) {
-            return thunkAPI.rejectWithValue('Загрузка постов не удалась!')
+            return rejectWithValue('Загрузка постов не удалась!')
         }
     }
 )
@@ -56,9 +52,9 @@ const { actions: postsAction, reducer: postsReducer } = createSlice({
             state.loading = false
             state.posts = action.payload
         })
-        addCase(asyncGetAllPosts.rejected, (state, action: PayloadAction<string>): void => {
+        addCase(asyncGetAllPosts.rejected, (state, action): void => {
             state.loading = false
-            state.error = action.payload || 'Неизвестная ошибка!'
+            state.error = getErrorMessage(action)
         })
         addCase(asyncRemovePost.pending, (state): void => {
             state.loading = true
@@ -66,9 +62,9 @@ const { actions: postsAction, reducer: postsReducer } = createSlice({
         addCase(asyncRemovePost.fulfilled, (state): void => {
             state.loading = false
         })
-        addCase(asyncRemovePost.rejected, (state, action: PayloadAction<string>): void => {
+        addCase(asyncRemovePost.rejected, (state, action): void => {
             state.loading = false
-            state.error = action.payload || 'Неизвестная ошибка!'
+            state.error = getErrorMessage(action)
         })
     },
 })

@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import { postsReducer } from './reducers/postsSlice.tsx'
-import { counterReducer } from './reducers/counterSlice.tsx'
-import { createPostReducer } from './reducers/createPostSlice.tsx'
-import { onePostReducer } from './reducers/onePostSlice.tsx'
+import { postsReducer } from './reducers/postSlice/postsSlice.tsx'
+import { counterReducer } from './reducers/counterSlice/counterSlice.tsx'
+import { createPostReducer } from './reducers/createPost/createPostSlice.tsx'
+import { onePostReducer } from './reducers/onePostSlice/onePostSlice.tsx'
 
 
 export const store = configureStore({

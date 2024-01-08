@@ -3,7 +3,7 @@ import { FC, FormEvent } from 'react'
 import classes from './createPostPage.module.sass'
 import { IPost } from '../../models/IPost.tsx'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux.tsx'
-import { asyncCreatePost, createPostAction } from '../../store/reducers/createPostSlice.tsx'
+import { asyncCreatePost, createPostAction } from '../../store/reducers/createPost/createPostSlice.tsx'
 
 
 export const CreatePostPage: FC = () => {

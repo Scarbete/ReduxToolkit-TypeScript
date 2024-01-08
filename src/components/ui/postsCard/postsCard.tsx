@@ -3,7 +3,7 @@ import { FC } from 'react'
 import classes from './postsCard.module.sass'
 import { IPost } from '../../../models/IPost.tsx'
 import { useAppDispatch } from '../../../hooks/redux.tsx'
-import { asyncRemovePost } from '../../../store/reducers/postsSlice.tsx'
+import { asyncRemovePost } from '../../../store/reducers/postSlice/postsSlice.tsx'
 import { NavLink } from 'react-router-dom'
 import { links } from '../../../links/links.tsx'
 
