@@ -45,7 +45,8 @@ export const PostPage: FC = () => {
         else alert('Неизвестная ошибка пон да?')
     }
 
-    return (
+    if (error) return <h2>{error}</h2>
+    return loading ? <h2>Загрузка</h2> : (
         <div className={classes.postPage}>
             <div className={'container'}>
                 <div className={classes.postPage__inner}>

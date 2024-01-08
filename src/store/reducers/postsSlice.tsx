@@ -21,7 +21,6 @@ export const asyncGetAllPosts = createAsyncThunk<IPost[]>(
     'postsSlice/asyncGetAllPosts', async (_, thunkAPI) => {
         try {
             const { data } = await axios.get<IPost[]>(ApiRoutes.posts)
-            console.log(data)
             return data
         }
         catch (e) {
@@ -48,7 +47,7 @@ const { actions: postsAction, reducer: postsReducer } = createSlice({
     name: 'postsSlice',
     initialState,
     reducers: {},
-    extraReducers: ({ addCase }) => {
+    extraReducers: ({ addCase }): void => {
         addCase(asyncGetAllPosts.pending, (state): void => {
             state.loading = true
             state.error = ''

@@ -55,7 +55,7 @@ const { actions: onePostActon, reducer: onePostReducer } = createSlice({
     name: 'onePostSlice',
     initialState,
     reducers: {},
-    extraReducers: ({ addCase }) => {
+    extraReducers: ({ addCase }): void => {
         addCase(asyncGetOnePost.pending, (state): void => {
             state.loading = true
         })

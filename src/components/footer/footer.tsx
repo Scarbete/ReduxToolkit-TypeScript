@@ -1,7 +1,8 @@
 import classes from './footer.module.sass'
+import { FC } from 'react'
 
 
-export const Footer = () => {
+export const Footer: FC = () => {
     return (
         <div className={classes.footer}>
             <div className={'container'}>

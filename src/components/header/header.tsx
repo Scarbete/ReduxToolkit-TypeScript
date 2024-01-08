@@ -2,9 +2,10 @@ import classes from './header.module.sass'
 import headerLogo from '../../assets/images/vite.svg'
 import { NavLink } from 'react-router-dom'
 import { links } from '../../links/links.tsx'
+import { FC } from 'react'
 
 
-export const Header = () => {
+export const Header: FC = () => {
 
     return (
         <div className={classes.header}>
