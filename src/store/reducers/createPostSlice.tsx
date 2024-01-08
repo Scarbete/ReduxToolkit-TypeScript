@@ -5,51 +5,9 @@ import { IPost } from '../../models/IPost.tsx'
 import { ApiRoutes } from '../../api/api.tsx'
 import { asyncGetAllPosts } from './postsSlice.tsx'
 
-// interface SerializedError {
-//     name?: string
-//     message?: string
-//     code?: string
-//     stack?: string
-// }
-
-// interface RejectedAction<ThunkArg> {
-//     type: string
-//     payload: undefined
-//     error: SerializedError | any
-//     meta: {
-//         requestId: string
-//         arg: ThunkArg
-//         aborted: boolean
-//         condition: boolean
-//     }
-// }
-
-// interface RejectedWithValueAction<ThunkArg, RejectedValue> {
-//     type: string
-//     payload: RejectedValue
-//     error: { message: 'Rejected' }
-//     meta: {
-//         requestId: string
-//         arg: ThunkArg
-//         aborted: boolean
-//     }
-// }
-
-// interface RejectPayloadValue {
-//     error: {
-//         message: string
-//     },
-//     meta: {
-//         aborted: boolean,
-//         arg: IPost,
-//         condition: boolean,
-//         rejectedWithValue: boolean,
-//         requestId: string,
-//         requestStatus: string
-//     },
-//     payload: string,
-//     type: string
-// }
+interface CustomRejectedAction {
+    message: string
+}
 
 interface createPostsState {
     title: string
@@ -71,14 +29,14 @@ const initialState: createPostsState = {
 export const asyncCreatePost = createAsyncThunk(
     'createPostSlice/asyncCreatePost', async (post: IPost, { dispatch, rejectWithValue }) => {
         try {
-            const response = await axios.post(`${ApiRoutes.posts}s`, post)
+            const response = await axios.post(ApiRoutes.posts, post)
             if (response.status <= 204 && response.status >= 200) {
                 dispatch(asyncGetAllPosts())
                 dispatch(createPostAction.clearInputs())
             }
         }
         catch (e) {
-            return rejectWithValue('Не удалость создать пост!')
+            return rejectWithValue({message: 'Не удалость создать пост!'} as CustomRejectedAction)
         }
     }
 )
@@ -111,10 +69,9 @@ const { actions: createPostAction, reducer: createPostReducer } = createSlice({
         addCase(asyncCreatePost.fulfilled, (state): void => {
             state.loading = false
         })
-        addCase(asyncCreatePost.rejected, (state, action: PayloadAction<string>): void => {
+        addCase(asyncCreatePost.rejected, (state, action): void => {
             state.loading = false
-            console.log(action)
-            state.error = action.payload || 'Неизвестная ошибка!'
+            state.error = (action.payload as CustomRejectedAction)?.message || 'Неизвестная ошибка!'
         })
     }
 })
